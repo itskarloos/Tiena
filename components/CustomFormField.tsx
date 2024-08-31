@@ -57,7 +57,7 @@ const RenderField = ({field,props} : {field:any,props:CustomFormFieldProps}) => 
         return(
           <FormControl>
             <PhoneInput
-              defualtCountry="Eth"
+              defaultCountry="ETH"
               placeholder={placeholder}
               international
               withCountryCallingCode
