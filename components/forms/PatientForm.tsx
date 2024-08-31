@@ -16,6 +16,17 @@ import {
 
 import CustomFormField from "../CustomFormField";
 
+
+export enum FormFieldType {
+  INPUT = 'input',
+  TEXTAREA = 'textarea',
+  CHECKBOX = 'checkbox',
+  PHONE_INPUT = 'phoneinput',
+  RADIO = 'radio',
+  SELECT = 'select',
+  DATE_PICKER = 'datepicker',
+  SKELETON = "skeleton",
+}
 const formSchema = z.object({
   username: z.string().min(2, {
     message: "Username must be at least 2 characters.",
@@ -42,7 +53,15 @@ const PatientForm = () => {
           <h1 className="header">Hi there 😊</h1>
           <p className="text-dark-700">Schedule your first appointment.</p>
         </section>
-       <CustomFormField control={form.control}/>
+       <CustomFormField 
+       fieldType = {FormFieldType.INPUT}
+       control={form.control}
+       name="name"
+       label="Full name"
+       placeholder="Michael seyoum"
+       iconSrc="/assets/icons/user.svg"
+       iconAlt="user"
+       />
         <Button type="submit">Submit</Button>
       </form>
     </Form>
