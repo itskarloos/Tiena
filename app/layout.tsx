@@ -7,7 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 const fontSans = FontSans({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
-  variable: "--font--sans"
+  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
@@ -22,12 +22,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn('min-h-screen bg-dark-300 font-sans antialiased',fontSans.variable)}>
+      <body className={cn("min-h-screen bg-dark-300 font-sans antialiased",
+          fontSans.variable)}>
       <ThemeProvider
             attribute="class"
             defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
+            
           >
             {children}
           </ThemeProvider>
