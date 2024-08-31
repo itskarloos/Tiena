@@ -13,6 +13,7 @@ import {
 
 import CustomFormField from "../CustomFormField";
 import Submitbutton from "../Submitbutton";
+import { useState } from "react";
 
 export enum FormFieldType {
   INPUT = 'input',
@@ -34,6 +35,7 @@ const formSchema = z.object({
 });
 
 const PatientForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,7 +49,7 @@ const PatientForm = () => {
     console.log(values);
   };
 
-  const isLoading = false; // Define isLoading state if needed, e.g., useState or hardcoded for now
+   // Define isLoading state if needed, e.g., useState or hardcoded for now
 
   return (
     <Form {...form}>
@@ -81,7 +83,7 @@ const PatientForm = () => {
           label="Phone number"
           placeholder="+251 912345678"
         />
-        <Submitbutton isLoading={isLoading}>Submit</Submitbutton> {/* Fixed children prop */}
+        <Submitbutton isLoading={isLoading}>Get Started</Submitbutton> {/* Fixed children prop */}
       </form>
     </Form>
   );
