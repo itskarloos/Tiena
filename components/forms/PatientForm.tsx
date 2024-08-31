@@ -6,16 +6,13 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 
 import CustomFormField from "../CustomFormField";
-
+import Submitbutton from "../Submitbutton";
 
 export enum FormFieldType {
   INPUT = 'input',
@@ -27,24 +24,30 @@ export enum FormFieldType {
   DATE_PICKER = 'datepicker',
   SKELETON = "skeleton",
 }
+
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  name: z.string().min(2, {
+    message: "Name must be at least 2 characters.",
   }),
+  email: z.string().email({ message: "Invalid email address." }),
+  phone: z.string().min(10, { message: "Phone number must be at least 10 characters." }), // Example validation
 });
 
 const PatientForm = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      name: "",
+      email: "",
+      phone: "",
     },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     console.log(values);
   };
-  // ...
+
+  const isLoading = false; // Define isLoading state if needed, e.g., useState or hardcoded for now
 
   return (
     <Form {...form}>
@@ -53,33 +56,32 @@ const PatientForm = () => {
           <h1 className="header">Hi there 😊</h1>
           <p className="text-dark-700">Schedule your first appointment.</p>
         </section>
-       <CustomFormField 
-       fieldType = {FormFieldType.INPUT}
-       control={form.control}
-       name="name"
-       label="Full name"
-       placeholder="Michael seyoum"
-       iconSrc="/assets/icons/user.svg"
-       iconAlt="user"
-       />
-       <CustomFormField 
-       fieldType = {FormFieldType.INPUT}
-       control={form.control}
-       name="email"
-       label="Email"
-       placeholder="michaelseyoum@gmail.com"
-       iconSrc="/assets/icons/email.svg"
-       iconAlt="email"
-       />
-       <CustomFormField 
-       fieldType = {FormFieldType.PHONE_INPUT}
-       control={form.control}
-       name="phone"
-       label="Phone number"
-       placeholder="+251 912345678"
-       
-       />
-        <Button type="submit">Submit</Button>
+        <CustomFormField 
+          fieldType={FormFieldType.INPUT}
+          control={form.control}
+          name="name"
+          label="Full name"
+          placeholder="Michael Seyoum"
+          iconSrc="/assets/icons/user.svg"
+          iconAlt="user"
+        />
+        <CustomFormField 
+          fieldType={FormFieldType.INPUT}
+          control={form.control}
+          name="email"
+          label="Email"
+          placeholder="michaelseyoum@gmail.com"
+          iconSrc="/assets/icons/email.svg"
+          iconAlt="email"
+        />
+        <CustomFormField 
+          fieldType={FormFieldType.PHONE_INPUT}
+          control={form.control}
+          name="phone"
+          label="Phone number"
+          placeholder="+251 912345678"
+        />
+        <Submitbutton isLoading={isLoading}>Submit</Submitbutton> {/* Fixed children prop */}
       </form>
     </Form>
   );
